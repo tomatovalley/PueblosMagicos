@@ -1,0 +1,22 @@
+{
+  "name": "pueblos-magicos",
+  "version": "1.0.0",
+  "description": "Sistema web pueblos",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomatovalley/PueblosMagicos.git"
+  },
+  "author": "Juan Delgado",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tomatovalley/PueblosMagicos/issues"
+  },
+  "homepage": "https://github.com/tomatovalley/PueblosMagicos#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
