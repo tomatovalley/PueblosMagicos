@@ -1,6 +1,6 @@
 const passportlocal = require('passport-local').Strategy;
 
-const User = require('./app/models/users');
+const User = require('../app/models/user');
 
 module.exports = function (passport){
 
@@ -16,7 +16,7 @@ module.exports = function (passport){
 	});
 
 	//signup
-	passport.user( 'local-signup', new passportlocal ({
+	passport.use( 'local-signup', new passportlocal ({
 		nameField: 'name',
 		usernameField: 'username',
 		emailField: 'email',
@@ -39,9 +39,9 @@ module.exports = function (passport){
 				newUser.local.username = username;
 				newUser.local.email = email;
 				newUser.local.password = newUser.generateHash(password);
-				newUser.save(function (err) {
-					if (err) { 
-						throw err; 
+				newUser.save( function ( err ) {
+					if ( err ) { 
+						throw ( err ); 
 					}
 					return done( null, newUser );
 				});
@@ -51,7 +51,7 @@ module.exports = function (passport){
 	}));
 
 
-	passport.user( 'local-login', new passportlocal ({
+	passport.use( 'local-login', new passportlocal ({
 		usernameField: 'username',
 		passwordField: 'password',
 		pasaReqToCallback: true
