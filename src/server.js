@@ -19,9 +19,11 @@ mongoose.connect(url, {
 //require('./config/passport')(passport);
 
 //settings
-app.set('port', process.env.PORT || 3000);
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+app.set('port', process.env.PORT || 3030);
+//app.set('views', path.join(__dirname, '/views'));
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jsx');
+app.engine('jsx', require('express-react-views').createEngine());
 
 //middleware
 //app.use(morgan('dev'));

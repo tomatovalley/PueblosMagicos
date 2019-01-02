@@ -15,4 +15,10 @@ module.exports = (app, passport) => {
       message: req.flash('signupMessage')
     })
   });
+  app.get('/test', (req, res) => {
+    res.render('test', {
+      message: req.flash('testMessage')
+    })
+  });
+
 };
