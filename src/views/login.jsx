@@ -36,7 +36,7 @@ render() {
              <RaisedButton label="Iniciar sesión" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
 
            <hr></hr>
-             <div class="text-center">
+             <div className="text-center">
              <p>¿Necesitas una cuenta? <a href="/signup">Regístrate</a></p>
              <p>o puede ir a <a href="/">Inicio</a>.</p>
             </div>

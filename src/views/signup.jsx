@@ -52,7 +52,7 @@ class Register extends Component {
            <br/>
            <RaisedButton label="Registrarse" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
            <hr></hr>
-           <div class="text-center">
+           <div className="text-center">
              <p>¿Ya tienes una cuenta? <a href="/login">Login</a></p>
              <p>o puede ir a <a href="/">Inicio</a>.</p>
            </div>
