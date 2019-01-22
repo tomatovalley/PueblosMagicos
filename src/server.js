@@ -9,6 +9,9 @@ const flash = require('connect-flash');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+var Twitter = require('twitter');
+
+var config = require('./app/Twitter.js');
 
 const { url } = require('./config/database');
 
@@ -16,6 +19,8 @@ mongoose.connect(url, {
 	useNewUrlParser: true
 });
 
+// Variable que guarda la informacion de 
+var T = new Twitter(config);
 //require('./config/passport')(passport);
 
 //settings
@@ -47,3 +52,26 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.listen(app.get('port'), () => {
 	console.log('server on port', app.get('port'));
 });
+
+
+
+
+var params = {
+  q: '#nodejs',
+  count: 10,
+  result_type: 'recent',
+  lang: 'en'
+}
+
+//Recoleccion de tweets
+T.get('search/tweets', params, function(err, data, response) {
+  // If there is no error, proceed
+  if(!err){
+    
+    console.log(data);
+     
+    
+  } else {
+    console.log(err);
+  }
+})
