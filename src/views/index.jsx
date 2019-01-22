@@ -11,18 +11,24 @@ export default class App extends Component {
           <AppBar
              title="Inicio"
            />
-      <div class="container">
-        <div class="card text-center mt-5">
-          <div class="card-body">
+         <div className="container">
+        <div className="card text-center mt-5">
+          <div className="card-body">
             {/*<h1><span class="fa fa-lock"></span> Inicio de sesión o Registro</h1>*/}
             <br/>
-            <a href="/login" class="btn btn-light">
-              <span class="fa fa-user"></span> Inicio de sesión
+            <a href="/login" className="btn btn-light">
+              <span className="fa fa-user"></span> Inicio de sesión
             </a>
             <br/>
-            <a href="/signup" class="btn btn-light">
-              <span class="fa fa-user"></span> Registro
+            <a href="/signup" className="btn btn-light">
+              <span className="fa fa-user"></span> Registro
             </a>
+            <br/>
+            {/*
+            <a href="/test" className="btn btn-light">
+              <span className="fa fa-user"></span> Test
+            </a>
+            */}
           </div>
         </div>
       </div>

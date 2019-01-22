@@ -1,12 +1,32 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
+import classNames from 'classnames';
+import { withStyles } from '@material-ui/core/styles';
+import MenuItem from '@material-ui/core/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
+import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
-//import React, { Component } from 'react';
 
-class Register extends Component {
+const styles = theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+  },
+  dense: {
+    marginTop: 16,
+  },
+  menu: {
+    width: 200,
+  },
+});
+
+class Register extends React.Component {
   constructor(props){
     super(props);
     this.state={
@@ -16,55 +36,61 @@ class Register extends Component {
       password:''
     }
   }
+
   render() {
+
+    const { classes } = this.props;
+
     return (
       <div>
         <MuiThemeProvider>
           <div>
           <AppBar
              title="Registro"
-           />
-           <TextField
-             hintText="Introducir nombre"
-             floatingLabelText="Nombre"
-             onChange = {(event,newValue) => this.setState({first_name:newValue})}
-             />
-           <br/>
-           <TextField
-             hintText="Introducir usuario"
-             floatingLabelText="Usuario"
-             onChange = {(event,newValue) => this.setState({last_name:newValue})}
-             />
-           <br/>
-           <TextField
-             hintText="Introducir correo"
-             type="email"
-             floatingLabelText="Correo"
-             onChange = {(event,newValue) => this.setState({email:newValue})}
-             />
-           <br/>
-           <TextField
-             type = "password"
-             hintText="Introducir contraseña"
-             floatingLabelText="Contraseña"
-             onChange = {(event,newValue) => this.setState({password:newValue})}
-             />
-           <br/>
-           <RaisedButton label="Registrarse" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
-           <hr></hr>
-           <div class="text-center">
-             <p>¿Ya tienes una cuenta? <a href="/login">Login</a></p>
-             <p>o puede ir a <a href="/">Inicio</a>.</p>
-           </div>
-          </div>
-         </MuiThemeProvider>
+           /> <br/>
+        <TextField
+          id="txt_name"
+          label="Nombre"
+          onChange = {(event,newValue) => this.setState({first_name:newValue})}
+          margin="normal"
+          variant="filled"
+        /> <br/>
+        <TextField
+          id="txt_user"
+          label="Usuario"
+          onChange = {(event,newValue) => this.setState({username:newValue})}
+          margin="normal"
+          variant="filled"
+        /> <br/>
+        <TextField
+          id="txt_email"
+          label="Correo"
+          onChange = {(event,newValue) => this.setState({email:newValue})}
+          margin="normal"
+          variant="filled"
+        /> <br/>
+        <TextField
+          id="txt_password"
+          label="Contraseña"
+          onChange = {(event,newValue) => this.setState({password:newValue})}
+          margin="normal"
+          variant="filled"
+        /> <br/>
+      <RaisedButton label="Registrarse" primary={true} onClick={(event) => this.handleClick(event)}/>
+        <hr></hr>
+        <div className="text-center">
+          <p>¿Ya tienes una cuenta? <a href="/login">Login</a></p>
+          <p>o puede ir a <a href="/">Inicio</a>.</p>
+        </div>
       </div>
+     </MuiThemeProvider>
+  </div>
     );
   }
 }
 
-const style = {
-  margin: 15,
+Register.propTypes = {
+  classes: PropTypes.object.isRequired,
 };
 
-export default Register;
+export default withStyles(styles)(Register);

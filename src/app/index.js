@@ -4,4 +4,4 @@
 
 //render(<App/>, document.getElementById('app'));
 
-alert('react goes here');
+//alert('react goes here');
