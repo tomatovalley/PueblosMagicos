@@ -22,7 +22,7 @@ module.exports = (app, passport) => {
   });
 
   app.get('/test', (req, res) => {
-    res.render('test', {
+    res.render('test2', {
       message: req.flash('testMessage')
     })
   });

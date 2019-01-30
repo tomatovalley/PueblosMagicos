@@ -23,6 +23,12 @@ export default class App extends Component {
             <a href="/signup" className="btn btn-light">
               <span className="fa fa-user"></span> Registro
             </a>
+            <br/>
+            {/*
+            <a href="/test" className="btn btn-light">
+              <span className="fa fa-user"></span> Test
+            </a>
+            */}
           </div>
         </div>
       </div>
