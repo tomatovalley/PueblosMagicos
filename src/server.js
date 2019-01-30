@@ -9,9 +9,12 @@ const flash = require('connect-flash');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-var Twitter = require('twitter');
 
+
+var Twitter = require('twitter');
 var config = require('./app/Twitter.js');
+
+
 
 const { url } = require('./config/database');
 
@@ -19,9 +22,11 @@ mongoose.connect(url, {
 	useNewUrlParser: true
 });
 
-// Variable que guarda la informacion de 
+// Variable que guarda la informacion del modulo
 var T = new Twitter(config);
-//require('./config/passport')(passport);
+
+require('./config/passport')(passport);
+
 
 //settings
 app.set('port', process.env.PORT || 3000);
@@ -29,6 +34,8 @@ app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jsx');
 app.engine('jsx', require('express-react-views').createEngine());
+
+
 
 //middleware
 //app.use(morgan('dev'));
@@ -42,9 +49,12 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+app.use(express.json());
+
 
 //routes
 require('./app/routes')(app, passport);
+
 
 //static files
 app.use(express.static(path.join(__dirname, 'public')));
