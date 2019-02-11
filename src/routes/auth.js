@@ -32,10 +32,10 @@ module.exports = function (passport) {
     });
 
     router.post('/login', passport.authenticate('local', {
-        failureRedirect:'/login',
-        successRedirect:'/'
+        failureRedirect:'/login'
     }), function(req, res, next){
         res.send('you are loged in');
+        console.log(req.body)
     });
 
     return router;

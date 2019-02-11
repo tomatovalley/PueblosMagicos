@@ -20,9 +20,9 @@ module.exports = app => {
     router.get('/login',home.login);
     router.get('/logout',home.logout);
     router.get('/post/recent', post.index);
-    router.post('/post', post.create);
-    router.post('/post/post_id/like', post.like);
-    router.post('/post/post_id/comment', post.comment);
+    router.post('/post/:user_id', post.create);
+    router.post('/post/:post_id/like', post.like);
+    router.post('/post/:post_id/comment', post.comment);
     router.delete('/post/:post_id', post.remove);
 
     app.use(router);

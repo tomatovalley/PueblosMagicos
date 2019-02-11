@@ -12,7 +12,7 @@ var params = {
 module.exports = twitter => {
     T.get('search/tweets', params, function(err, data, response) {
         if(!err){
-        console.log(data);
+        //console.log(data);
         } else {
         console.log(err);
         }

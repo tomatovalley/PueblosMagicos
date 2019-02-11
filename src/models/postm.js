@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const postSchema = new Schema({
+    user_id: { type: Schema.Types.ObjectId },
     autor: { type: String},
     content: { type: String },
     likes: { type: Number, default: 0},

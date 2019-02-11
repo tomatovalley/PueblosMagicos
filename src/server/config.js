@@ -15,7 +15,7 @@ module.exports = app => {
 
 
     //settings
-    app.set('port', process.env.PORT || 3000);
+    app.set('port', process.env.PORT || 5000);
     app.set('views', path.join(__dirname, 'views'));
     
 
@@ -23,7 +23,7 @@ module.exports = app => {
     //middlewares
     app.use(morgan('dev'));
     app.use(multer({dest: path.join(__dirname, '../public/upload/temp')}).single('image'));
-    app.use(express.urlencoded({extended: false}));
+    app.use(express.urlencoded({extended: true}));
     app.use(express.json());
     app.use(session({
         secret: 'umaewamou',

@@ -1,7 +1,7 @@
 const path = require('path');
 const { randomNumber } = require('../helpers/libs')
 const fs = require('fs-extra');
-const { Post, Comment } = require('../models');
+const { Post, Comment, User } = require('../models');
 
 const ctrl = {};
 
@@ -14,18 +14,23 @@ ctrl.index = async (req, res) => {
 
 ctrl.create = async (req, res) => {
     console.log(req.body);
-    const newPost = new Post({
-        autor: req.body.autor,
-        content: req.body.content,
-    });
-    
-    // validaciones de los campos en mappedComment
-    
-    try{
-        await newPost.save();
-    } catch(e) {
-        console.log(e);
+    const user = await User.findOne({ _id: req.params.user_id })
+    if (user) {
+        const newPost = new Post({
+            user_id: user._id,
+            autor: user.username,
+            content: req.body.content,
+        });
+        
+        // validaciones de los campos en mappedComment
+        
+        try{
+            await newPost.save();
+        } catch(e) {
+            console.log(e);
+        }
     }
+    
 /*
     const imgUrl = randomNumber();
     console.log(imgUrl);    
@@ -48,7 +53,7 @@ ctrl.create = async (req, res) => {
 };
 
 ctrl.like = async (req, res) => {
-    const post = await Post.findOne({ _id: {$regex: req.params.post_id} })
+    const post = await Post.findOne({ _id: req.params.post_id })
     if (post) {
         post.likes = post.likes + 1;
         await post.save();
@@ -58,28 +63,30 @@ ctrl.like = async (req, res) => {
 };
 
 ctrl.comment = async (req, res) => {
-    console.log(req);
-    var mComment = {
-        email: req.body.email,
-        name: req.body.name,
-        content: req.body.content,
-    };
-    
-    // validaciones de los campos en mappedComment
-    
-    try{
-        var newComment = new Comment(mComment);
-        await newComment.save();
-    } catch(e) {
-        console.log(e);
+    console.log(req.body);
+    const post = await Post.findOne({ _id: req.params.post_id })
+    if (post) {
+        var mComment = {
+            post_id: post._id,
+            name: req.body.name,
+            content: req.body.content,
+        };
+        
+        try{
+            var newComment = new Comment(mComment);
+            await newComment.save();
+        } catch(e) {
+            console.log(e);
+        }
     }
+    
 
 };
 
 ctrl.remove = async (req, res) => {
-    const post = await Post.findOne({ _id: {$regex: req.params.post_id} })
+    const post = await Post.findOne({ _id: req.params.post_id })
     if (post) {
-        await comment.deleteOne({ post_id: post._id });
+        await Comment.deleteOne({ post_id: post._id });
         await post.remove();
     }
 };
