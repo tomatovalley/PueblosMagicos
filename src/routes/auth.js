@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 
-module.exports = function (passport) {
+module.exports = function (passport) { 
     router.post('/signup', function (req,  res) {
         User.findOne({ $or: [
             { username: req.body.username  },
@@ -32,10 +32,20 @@ module.exports = function (passport) {
     });
 
     router.post('/login', passport.authenticate('local', {
-        failureRedirect:'/login'
+        failWithError: true
     }), function(req, res, next){
-        res.send('you are loged in');
-        console.log(req.body)
+
+        console.log('chido');
+         return res.json({ mensaje: 'bien'}); 
+    }, function (error, req, res, next) {
+
+        console.log('eror');
+
+        return res.json({ mensaje: 'erro'}); 
+
+        
+        //if (req.xhr) { return res.json({ error: 'error'});}
+         // return res.json({error: 'error'});
     });
 
     return router;

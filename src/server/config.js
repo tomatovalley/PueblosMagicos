@@ -6,6 +6,7 @@ const routes = require('../routes/index')
 const errorHandler = require('errorhandler')
 const session = require('express-session');
 const passport = require('passport');
+const bodyparser = require('body-parser');
 
 
 
@@ -23,8 +24,8 @@ module.exports = app => {
     //middlewares
     app.use(morgan('dev'));
     app.use(multer({dest: path.join(__dirname, '../public/upload/temp')}).single('image'));
-    app.use(express.urlencoded({extended: true}));
-    app.use(express.json());
+    app.use(bodyparser.urlencoded({extended: true}));
+    app.use(bodyparser.json());
     app.use(session({
         secret: 'umaewamou',
         saveUninitialized: false,
