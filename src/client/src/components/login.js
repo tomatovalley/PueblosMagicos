@@ -33,6 +33,9 @@ class Login extends Component  {
         password:''
       };
       this.handleSubmit = this.handleSubmit.bind(this);
+      
+      this.handleEmailChange = this.handleEmailChange.bind(this);
+      this.handlePasswordChange= this.handlePasswordChange.bind(this);
       this.aaaaa();
     }
 
@@ -42,8 +45,17 @@ class Login extends Component  {
       .then(data => console.log(data))
     }
 
+    handleEmailChange(e) {
+      this.setState({username: e.target.value});
+   }
+
+   handlePasswordChange(e) {
+      this.setState({password: e.target.value});
+   }
+
     handleSubmit(event) {
        event.preventDefault();
+       const data = this.state;
 
        fetch('/auth/login', {
          method: 'POST',
@@ -51,7 +63,7 @@ class Login extends Component  {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
         },
-        body: JSON.stringify({username:'ju', password:'password'})
+        body: JSON.stringify(data)
        }).then(response => response.json())
       .then(data => console.log('Repuesta'+ data))
       .catch(error => console.error('Error:', error))
@@ -70,10 +82,20 @@ class Login extends Component  {
 
           <div style={TodoComponent}>
             <h2 style={Header}>Inicia Sesión</h2>
-            <input type="text" placeholder="Usuario" name="uname" required/>
+            <input 
+            type="text" 
+            name="username" 
+            placeholder="Username" 
+            value={this.state.email} 
+            onChange={this.handleEmailChange} />
             <br/>
             <br/>
-            <input type="password" placeholder="Contraseña" name="psw" required/>
+            <input 
+            type="password" 
+            name="password" 
+            placeholder="Password" 
+            value={this.state.password} 
+            onChange={this.handlePasswordChange}/>
             <br/>
             <br/>
             <button type="submit">Iniciar</button>
@@ -97,5 +119,6 @@ class Login extends Component  {
     );
   }
 }
+
 
 export default Login;

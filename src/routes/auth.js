@@ -39,9 +39,9 @@ module.exports = function (passport) {
          return res.json({ mensaje: 'bien'}); 
     }, function (error, req, res, next) {
 
-        console.log('eror');
+        console.log('error');
 
-        return res.json({ mensaje: 'erro'}); 
+        return res.json({ mensaje: 'error'}); 
 
         
         //if (req.xhr) { return res.json({ error: 'error'});}
