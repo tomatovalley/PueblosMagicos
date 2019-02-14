@@ -5,7 +5,7 @@ const { Schema, model } = require('mongoose');
 
 const CommentSchema = new Schema ({
     post_id: { type: Schema.Types.ObjectId },
-    name: { type: String },
+    autor: { type: String },
     content: { type: String },
     timestamp: { type: Date, default: Date.now }
 })

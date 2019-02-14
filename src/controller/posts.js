@@ -68,7 +68,7 @@ ctrl.comment = async (req, res) => {
     if (post) {
         var mComment = {
             post_id: post._id,
-            name: req.body.name,
+            autor: req.body.username,
             content: req.body.content,
         };
         
@@ -90,5 +90,7 @@ ctrl.remove = async (req, res) => {
         await post.remove();
     }
 };
+
+
 
 module.exports = ctrl;
