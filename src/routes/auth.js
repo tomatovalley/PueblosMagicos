@@ -9,10 +9,10 @@ module.exports = function (passport) {
             { email: req.body.email  }
           ]}, function (err, doc){
             if(err){
-                res.status(500).send('Internal error')
+                res.status(500).json({mensaje:'Internal error'})
             } else {
                 if (doc){
-                    res.status(500).send('username or email already exist')
+                    res.status(500).json({mensaje:'username or email already exist'})
                 } else {
                     var newUser = new User()
                     newUser.username = req.body.username;
@@ -20,9 +20,10 @@ module.exports = function (passport) {
                     newUser.password = newUser.hashPassword(req.body.password)
                     newUser.save(function(err, user){
                         if (err) {
-                            res.status(500).send('Database error')
+                            res.status(500).json({mensaje: 'Database error'})
                         }else{
-                            res.send('registered successfully')
+                            res.json({mensaje:'registered successfully'})
+                            console.log('simona');
                         }
                     })
 
@@ -34,10 +35,10 @@ module.exports = function (passport) {
     router.post('/login', passport.authenticate('local', {
         failWithError: true
     }), function(req, res, next){
-
-        console.log('chido');
-         return res.json({ mensaje: 'bien'}); 
+        return res.json(req.user); 
+        return res.json({ mensaje: 'logged in'});
     }, function (error, req, res, next) {
+<<<<<<< HEAD
 
         console.log('error');
 
@@ -46,6 +47,10 @@ module.exports = function (passport) {
         
         //if (req.xhr) { return res.json({ error: 'error'});}
          // return res.json({error: 'error'});
+=======
+        console.log('error');
+        return res.json({ mensaje: 'error'}); 
+>>>>>>> 351b22a0c0972d6fe9156b06b1670aa1a239138f
     });
 
     return router;
