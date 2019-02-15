@@ -1,22 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import classnames from 'classnames';
+//import classnames from 'classnames';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
+//import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
+//import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import red from '@material-ui/core/colors/red';
-import ThumbUp from '@material-ui/icons/ThumbUp'
-import CommentIcon from '@material-ui/icons/Comment'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ThumbUp from '@material-ui/icons/ThumbUp';
+import CommentIcon from '@material-ui/icons/Comment';
+//import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import DeleteIcon from '@material-ui/icons/Delete'
+import DeleteIcon from '@material-ui/icons/Delete';
 
 
 var sectionStyle = {
@@ -27,7 +27,7 @@ var sectionStyle = {
  };
 
 
- const Head = {
+ /*const Head = {
     width: "100%",
     backgroundColor: "#2F89FC",
     minHeight: "50px",
@@ -36,8 +36,7 @@ var sectionStyle = {
     display: "flex",
     justifyContent:"flex-end",
     alignItems:"center"
-  }
-  ;
+  };*/
 const styles = theme => ({
   card: {
     maxWidth: 500,
@@ -66,7 +65,24 @@ const styles = theme => ({
 });
 
 class CreatePost extends React.Component {
-  state = { expanded: false };
+    constructor(props) {
+        super(props);
+        this.state = {
+            expanded: false,
+            posts:[]
+        };
+        this.posts();
+    }
+
+    posts () {
+        fetch('/post/recent')
+        .then(res => res.json())
+        .then(data => this.saveData(data))
+    }
+
+    saveData = data => {
+        this.setState ({ posts: data});
+    };
 
   handleExpandClick = () => {
     this.setState(state => ({ expanded: !state.expanded }));
@@ -74,6 +90,8 @@ class CreatePost extends React.Component {
 
   render() {
     const { classes } = this.props;
+    const { posts } = this.state;
+    console.log(posts);
 
     return (
     <section style={ sectionStyle }>
@@ -125,3 +143,4 @@ CreatePost.propTypes = {
 };
 
 export default withStyles(styles)(CreatePost);
+//export default connect(mapStateToProps)(withStyles(styles)(CreatePost));

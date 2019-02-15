@@ -18,7 +18,7 @@ var sectionStyle = {
   height: "640px",
  };
 
- const Head = {
+ /*const Head = {
     width: "100%",
     backgroundColor: "#2F89FC",
     minHeight: "50px",
@@ -27,8 +27,7 @@ var sectionStyle = {
     display: "flex",
     justifyContent:"flex-end",
     alignItems:"center"
-  }
-  ;
+  };*/
 const styles = theme => ({
   card: {
     maxWidth: 500,

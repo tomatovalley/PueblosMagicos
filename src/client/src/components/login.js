@@ -4,7 +4,8 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom'
 //import PropTypes from 'prop-types';
 
-import { login } from './actions/index'
+import { login } from './actions/index';
+import { logout } from './actions/logout';
 import Background from './portada4.jpg';
 
 
@@ -93,8 +94,10 @@ class Login extends Component  {
       }).then(response => response.json())
       .then(data => this.props.login(data))
       .then(data => console.log(data))
-      .catch(error => console.error('Error:', error))
-      //console.log(this.props);
+      .catch((error)=>{
+        this.props.logout();
+        console.log(error);
+      });
    }
 
 
@@ -151,7 +154,7 @@ class Login extends Component  {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ login }, dispatch)
+  return bindActionCreators({ login, logout }, dispatch)
 }
 
 

@@ -50,22 +50,27 @@ class Profile extends Component {
   constructor(props){
     super(props);
     this.state = {
-      post:[]
+      posts:[]
     };
     this.posts();
   }
 
   posts () {
-    fetch('https://jsonplaceholder.typicode.com/todos/1')
-    .then(response => response.json())
-    .then(data => this.setState({post: data}))
-    .then(data => console.log(data))
-
+    fetch('/post/recent')
+    .then(res => res.json())
+    .then(data => this.saveData(data))
   }
 
-  render() {
-    return (
+  saveData = data => {
+    this.setState ({ posts: data});
+    //console.log(this.state.post);
+  };
 
+  render() {
+    const { posts } = this.state;
+    const { user } = this.props;
+
+    return (
       <div className="App">
         <header>
           <Head/>

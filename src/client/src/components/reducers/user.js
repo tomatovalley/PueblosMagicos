@@ -1,9 +1,20 @@
-const defaultState = [];
+const defaultState = {
+	user:[],
+	isLoggedIn: false,
+};
 
 function user(state = defaultState, { type, payload }){
 	switch (type) {
 		case 'login': {
-			return Object.assign(state, { payload });
+			return {
+				...state,
+				user: payload,
+				isLoggedIn : true,
+		}
+		}
+
+		case 'logout': {
+			return defaultState
 		}
 
 		default:
