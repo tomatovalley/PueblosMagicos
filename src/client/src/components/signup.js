@@ -135,7 +135,7 @@ class Signup extends Component {
               </label>
               <br/>
               <br/>
-                <p>¿Ya tienes una cuenta? <Link to="/login">Inicia sesión</Link></p>
+                <p>¿Ya tienes una cuenta? <Link to="/">Inicia sesión</Link></p>
 
             </div>
 
