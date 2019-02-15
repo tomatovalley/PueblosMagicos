@@ -1,24 +1,13 @@
-const initialState = [
-	{
-		hk:'hgfj'
-	}
-];
+const defaultState = [];
 
-function user (state = initialState, { type, payload }) {
-  switch (type) {
-		case 'LOGIN':
-			return [
-			{
-				hk:'hgfj'
-			},
-			];
-
-		case 'LOOUT':
-			return Object.assign(state, initialState);
+function user(state = defaultState, { type, payload }){
+	switch (type) {
+		case 'login': {
+			return Object.assign(state, { payload });
+		}
 
 		default:
 			return state;
-
 	}
 }
 

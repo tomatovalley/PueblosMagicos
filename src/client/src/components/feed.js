@@ -47,24 +47,29 @@ const Container = {
 var imageName = require('./avatar2.png')*/
 
 class Profile extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      post:[]
+    };
+    this.posts();
+  }
 
-  constructor() {
-          super();
-          this.state = {
-          };
-        }
+  posts () {
+    fetch('https://jsonplaceholder.typicode.com/todos/1')
+    .then(response => response.json())
+    .then(data => this.setState({post: data}))
+    .then(data => console.log(data))
+
+  }
 
   render() {
-
-    const { user } = this.props;
-
-    console.log(user);
-
     return (
 
       <div className="App">
         <header>
           <Head/>
+          
         </header>
 
       </div>

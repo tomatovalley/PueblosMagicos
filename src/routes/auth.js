@@ -38,19 +38,9 @@ module.exports = function (passport) {
         return res.json(req.user); 
         return res.json({ mensaje: 'logged in'});
     }, function (error, req, res, next) {
-<<<<<<< HEAD
 
         console.log('error');
-
         return res.json({ mensaje: 'error'}); 
-
-        
-        //if (req.xhr) { return res.json({ error: 'error'});}
-         // return res.json({error: 'error'});
-=======
-        console.log('error');
-        return res.json({ mensaje: 'error'}); 
->>>>>>> 351b22a0c0972d6fe9156b06b1670aa1a239138f
     });
 
     return router;

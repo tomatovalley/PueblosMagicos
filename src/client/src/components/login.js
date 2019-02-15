@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Link } from 'react-router-dom'
 //import PropTypes from 'prop-types';
 
-//import { login } from './actions';
+import { login } from './actions/index'
 import Background from './portada4.jpg';
 
 
@@ -64,13 +65,7 @@ class Login extends Component  {
         user:[]
       };
       this.handleSubmit = this.handleSubmit.bind(this);
-<<<<<<< HEAD
-      
-      this.handleEmailChange = this.handleEmailChange.bind(this);
-      this.handlePasswordChange= this.handlePasswordChange.bind(this);
-=======
       this.handleInfoChange = this.handleInfoChange.bind(this);
->>>>>>> 351b22a0c0972d6fe9156b06b1670aa1a239138f
       this.aaaaa();
     }
 
@@ -80,19 +75,6 @@ class Login extends Component  {
       .then(data => console.log(data))
     }
 
-<<<<<<< HEAD
-    handleEmailChange(e) {
-      this.setState({username: e.target.value});
-   }
-
-   handlePasswordChange(e) {
-      this.setState({password: e.target.value});
-   }
-
-    handleSubmit(event) {
-       event.preventDefault();
-       const data = this.state;
-=======
     handleInfoChange(e) {
       this.setState({[e.target.name]: e.target.value});
     }
@@ -100,7 +82,6 @@ class Login extends Component  {
     handleSubmit(event) {
       event.preventDefault();
       const data = this.state;
->>>>>>> 351b22a0c0972d6fe9156b06b1670aa1a239138f
 
       fetch('/auth/login', {
         method: 'POST',
@@ -109,23 +90,16 @@ class Login extends Component  {
         'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
-<<<<<<< HEAD
-       }).then(response => response.json())
-      .then(data => console.log('Repuesta'+ data))
-=======
       }).then(response => response.json())
+      .then(data => this.props.login(data))
       .then(data => console.log(data))
->>>>>>> 351b22a0c0972d6fe9156b06b1670aa1a239138f
       .catch(error => console.error('Error:', error))
       //console.log(this.props);
    }
 
-// this.setState({user: data})
-   componentDidMount(){
-    this.props.login();
-   }
 
   render() {
+
     return (
       <section style={ sectionStyle }>
       <div class="App">
@@ -138,35 +112,20 @@ class Login extends Component  {
 
           <div style={TodoComponent}>
             <h2 style={Header}>Inicia Sesión</h2>
-<<<<<<< HEAD
-            <input 
-=======
             <input style={formInput}
->>>>>>> 351b22a0c0972d6fe9156b06b1670aa1a239138f
             type="text" 
             name="username" 
             placeholder="Username" 
             value={this.state.email} 
-<<<<<<< HEAD
-            onChange={this.handleEmailChange} />
-            <br/>
-            <br/>
-            <input 
-=======
             onChange={this.handleInfoChange} />
             <br/>
             <br/>
             <input style={formInput}
->>>>>>> 351b22a0c0972d6fe9156b06b1670aa1a239138f
             type="password" 
             name="password" 
             placeholder="Password" 
             value={this.state.password} 
-<<<<<<< HEAD
-            onChange={this.handlePasswordChange}/>
-=======
             onChange={this.handleInfoChange}/>
->>>>>>> 351b22a0c0972d6fe9156b06b1670aa1a239138f
             <br/>
             <br/>
             <button style = {btn} type="submit">Iniciar</button>
@@ -178,6 +137,7 @@ class Login extends Component  {
             <span className="psw"><a href="/">¿Olvidaste tu contraseña?</a></span>
             <br/>
               <p>¿No tienes una cuenta? <a href="/signup">Regístrate</a></p>
+              <Link to="/feed">About</Link>
           </div>
 
         </form>
@@ -190,24 +150,11 @@ class Login extends Component  {
   }
 }
 
-
-<<<<<<< HEAD
-export default Login;
-=======
-/*const mapStateToProps = (state) => {
-  return {
-    user: state.user
-  };
-};
-
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    {
-        login
-    }, dispatch,
-  );
-}*/
+  return bindActionCreators({ login }, dispatch)
+}
 
-export default Login;
 
->>>>>>> 351b22a0c0972d6fe9156b06b1670aa1a239138f
+
+
+export default connect(null, mapDispatchToProps)(Login);

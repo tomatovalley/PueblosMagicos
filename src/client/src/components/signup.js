@@ -1,29 +1,5 @@
 import React, { Component } from 'react';
 import Background from './portada4.jpg';
-<<<<<<< HEAD
-
-var sectionStyle = {
- width: "100%",
- height: "640px",
- backgroundImage: `url(${Background})`,
- backgroundSize: 'cover'
-};
-
-const TodoComponent = {
-  width: "400px",
-  margin: "100px auto",
-  backgroundColor: "rgba(200, 200, 195, 0.75)",
-  minHeight: "250px",
-  boxSizing: "border-box",
-  textAlign: "center",
-}
-const Header = {
-  padding: "10px 20px",
-  textAlign: "center",
-  color: "black",
-  fontSize: "25px"
-}
-=======
 import { Link } from 'react-router-dom';
 
 var sectionStyle = {
@@ -78,13 +54,10 @@ var sectionStyle = {
    boxShadow: "0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 7px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -1px rgba(0, 0, 0, 0.2)",
    marginTop: "8px"
  }
->>>>>>> 351b22a0c0972d6fe9156b06b1670aa1a239138f
 
 
 
 class Signup extends Component {
-<<<<<<< HEAD
-=======
   constructor(props){
     super();
     this.state = {
@@ -119,46 +92,10 @@ class Signup extends Component {
 
 
 
->>>>>>> 351b22a0c0972d6fe9156b06b1670aa1a239138f
   render() {
     return (
       <section style={ sectionStyle }>
       <div className="App">
-<<<<<<< HEAD
-
-        <form action="action_page.php">
-          <div class="imgcontainer" >
-            <label> </label>
-          </div>
-
-          <div style={TodoComponent}>
-            <h2 style={Header}>Regístrate</h2>
-            <input type="text" placeholder="Nombre" name="name" required/>
-            <br/>
-            <br/>
-            <input type="text" placeholder="Usuario" name="uname" required/>
-            <br/>
-            <br/>
-            <input type="email" placeholder="Correo electrónico" name="mail" required/>
-            <br/>
-            <br/>
-            <input type="password" placeholder="Contraseña" name="psw" required/>
-            <br/>
-            <br/>
-            <button type="submit">Iniciar</button>
-            <br/>
-            <label>
-              <input type="checkbox" checked="checked" name="remember"/> Recordarme
-            </label>
-            <br/>
-            <br/>
-              <p>¿Ya tienes una cuenta? <a href="/">Inicia sesión</a></p>
-
-          </div>
-
-        </form>
-
-=======
         <form onSubmit={this.handleSubmit}>
           <form style={formInput} action="action_page.php">
             <div className="imgcontainer" >
@@ -204,7 +141,6 @@ class Signup extends Component {
 
           </form>
         </form>
->>>>>>> 351b22a0c0972d6fe9156b06b1670aa1a239138f
       </div>
       </section>
     );
@@ -212,8 +148,4 @@ class Signup extends Component {
   }
 }
 
-<<<<<<< HEAD
 export default Signup;
-=======
-export default Signup;
->>>>>>> 351b22a0c0972d6fe9156b06b1670aa1a239138f
