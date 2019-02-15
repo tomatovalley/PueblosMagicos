@@ -38,6 +38,7 @@ module.exports = function (passport) {
         return res.json(req.user); 
         return res.json({ mensaje: 'logged in'});
     }, function (error, req, res, next) {
+
         console.log('error');
         return res.json({ mensaje: 'error'}); 
     });

@@ -1,8 +1,11 @@
-export const type = 'LOGIN';
+export const type = 'login';
 
 
-const LOGIN = response => {
-  return { type: 'LOGIN', payload: {}}
-}
+export const login = text => {
+  return { 
+    type, 
+    payload: text,
+  };
+};
 
-export default LOGIN
+

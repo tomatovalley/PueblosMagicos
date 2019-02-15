@@ -91,6 +91,16 @@ ctrl.remove = async (req, res) => {
     }
 };
 
+ctrl.index = async (req, res) => {
+    const post = await Post.find()
+    if (post) {
+        res.json(post);
+    }
+    else {
+        res.json({mensaje:'error al encontrar'});
+    }
+};
+
 
 
 module.exports = ctrl;

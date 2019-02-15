@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route , Switch } from 'react-router-dom';
-import { createStore } from 'redux';
 
 
 
@@ -13,10 +12,7 @@ import Feed from './components/feed';
 import Login from './components/login';
 import Signup from './components/signup';
 
-
-import userInf from './components/reducers';
-
-const store = createStore(userInf)
+import store from './components/store/store'
 
 const App = (
 	<Provider store = { store }>

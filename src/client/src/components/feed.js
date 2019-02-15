@@ -47,24 +47,34 @@ const Container = {
 var imageName = require('./avatar2.png')*/
 
 class Profile extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      posts:[]
+    };
+    this.posts();
+  }
 
-  constructor() {
-          super();
-          this.state = {
-          };
-        }
+  posts () {
+    fetch('/post/recent')
+    .then(res => res.json())
+    .then(data => this.saveData(data))
+  }
+
+  saveData = data => {
+    this.setState ({ posts: data});
+    //console.log(this.state.post);
+  };
 
   render() {
-
+    const { posts } = this.state;
     const { user } = this.props;
 
-    console.log(user);
-
     return (
-
       <div className="App">
         <header>
           <Head/>
+          
         </header>
 
       </div>

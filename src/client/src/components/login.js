@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Link } from 'react-router-dom'
 //import PropTypes from 'prop-types';
 
-//import { login } from './actions';
+import { login } from './actions/index';
+import { logout } from './actions/logout';
 import Background from './portada4.jpg';
 
 
@@ -90,15 +92,22 @@ class Login extends Component  {
         },
         body: JSON.stringify(data)
       }).then(response => response.json())
+      .then(data => this.props.login(data))
       .then(data => console.log(data))
-      .catch(error => console.error('Error:', error))
-      //console.log(this.props);
+      .catch((error)=>{
+        this.props.logout();
+        console.log(error);
+      });
    }
 
+<<<<<<< HEAD
 // this.setState({user: data})
    
+=======
+>>>>>>> 8b5b7275c0e418b30fba04c1c734cfc57d61e6cc
 
   render() {
+
     return (
       <section style={ sectionStyle }>
       <div class="App">
@@ -136,6 +145,7 @@ class Login extends Component  {
             <span className="psw"><a href="/">¿Olvidaste tu contraseña?</a></span>
             <br/>
               <p>¿No tienes una cuenta? <a href="/signup">Regístrate</a></p>
+              <Link to="/feed">About</Link>
           </div>
 
         </form>
@@ -148,20 +158,11 @@ class Login extends Component  {
   }
 }
 
-
-/*const mapStateToProps = (state) => {
-  return {
-    user: state.user
-  };
-};
-
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    {
-        login
-    }, dispatch,
-  );
-}*/
+  return bindActionCreators({ login, logout }, dispatch)
+}
 
-export default Login;
 
+
+
+export default connect(null, mapDispatchToProps)(Login);
