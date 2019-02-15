@@ -96,9 +96,7 @@ class Login extends Component  {
    }
 
 // this.setState({user: data})
-   componentDidMount(){
-    this.props.login();
-   }
+   
 
   render() {
     return (
