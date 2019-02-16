@@ -15,7 +15,7 @@ import Typography from '@material-ui/core/Typography';
 import red from '@material-ui/core/colors/red';
 import ThumbUp from '@material-ui/icons/ThumbUp';
 import CommentIcon from '@material-ui/icons/Comment';
-//import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import PostForm from './global/postForm';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Link, Redirect } from 'react-router-dom';
@@ -169,6 +169,7 @@ class Profile extends Component {
 
           <div style={Card2}>
             <label>Posts</label>
+            < PostForm />
             <br /><br />
             <p>comparte experiencias con nosotros</p> 
             <Link to="/post">comentar</Link>

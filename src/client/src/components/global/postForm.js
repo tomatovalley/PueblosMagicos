@@ -33,8 +33,8 @@ var sectionStyle = {
 const styles = theme => ({
   card: {
     maxWidth: 500,
-    margin: 'auto',
-    marginTop: theme.spacing.unit * 5
+    //margin: 'auto',
+    //marginTop: theme.spacing.unit * 5
 
   },
   media: {
