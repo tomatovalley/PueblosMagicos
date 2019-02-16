@@ -20,6 +20,7 @@ module.exports = app => {
     router.get('/login',home.login);
     router.get('/logout',home.logout);
     router.get('/post/recent', post.index);
+    router.get('/profile/:user_id', post.profile);
     router.post('/post/:user_id', post.create);
     router.post('/post/:post_id/like', post.like);
     router.post('/post/:post_id/comment', post.comment);
@@ -28,8 +29,3 @@ module.exports = app => {
     app.use(router);
 
 };
-
-/*router.post('/login', passport.authenticate('local'),
-    function(req, res) {
-        res.json(req.user);
-    });*/

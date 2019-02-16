@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Background from './portada4.jpg';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 var sectionStyle = {
   width: "100vw",
@@ -63,7 +63,8 @@ class Signup extends Component {
     this.state = {
       username:'',
       email:'',
-      password:''
+      password:'',
+      req:false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInfoChange = this.handleInfoChange.bind(this);
@@ -86,13 +87,22 @@ class Signup extends Component {
       },
       body: JSON.stringify(data)
      }).then(response => response.json())
-    .then(data => console.log('Repuesta'+ data))
+    .then(data => {
+      if (data.mensaje === 'registered successfully'){
+        this.setState({req: true})
+      }
+    })
     .catch(error => console.error('Error:', error))
    }
 
 
 
   render() {
+    const { req } = this.state;
+
+    if (req) {
+      return <Redirect to='/'/>
+    }
     return (
       <section style={ sectionStyle }>
       <div className="App">

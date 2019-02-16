@@ -92,7 +92,7 @@ ctrl.remove = async (req, res) => {
 };
 
 ctrl.index = async (req, res) => {
-    const post = await Post.find()
+    const post = await Post.find().sort({ timestamp: -1 })
     if (post) {
         res.json(post);
     }
@@ -101,6 +101,14 @@ ctrl.index = async (req, res) => {
     }
 };
 
-
+ctrl.profile = async (req, res) => {
+    const post = await Post.find({ user_id: req.params.user_id }).sort({ timestamp: -1 })
+    if (post) {
+        res.json(post);
+    }
+    else {
+        res.json({mensaje:'error al encontrar'});
+    }
+}
 
 module.exports = ctrl;

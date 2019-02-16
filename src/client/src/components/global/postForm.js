@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button'
+import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
@@ -10,7 +10,9 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import red from '@material-ui/core/colors/red';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import TextField from '@material-ui/core/TextField'
+import TextField from '@material-ui/core/TextField';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 
 var sectionStyle = {
@@ -58,14 +60,48 @@ const styles = theme => ({
 });
 
 class CreatePost extends React.Component {
-  state = { expanded: false };
+  constructor(props){
+      super(props);
+      this.state = {
+        content:'',
+        redirect:false
+      };
+      this.handleSubmit = this.handleSubmit.bind(this);
+      this.handleInfoChange = this.handleInfoChange.bind(this);
+    }
 
-  handleExpandClick = () => {
-    this.setState(state => ({ expanded: !state.expanded }));
-  };
+  handleInfoChange(e) {
+    this.setState({content: e.target.value});
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    const { user } = this.props;
+    const url = `/post/${user.user._id}`;
+    const data = this.state;
+    this.setState({ redirect: true })
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    }).then(response => response.json())
+    .catch(error=> console.log(error));
+ }
 
   render() {
     const { classes } = this.props;
+    const { user } = this.props;
+    const { redirect } = this.state;
+    const name = user.user.username.toLocaleUpperCase();
+    console.log(redirect)
+
+    if (redirect) {
+      return <Redirect to='/feed'/>
+    }
 
     return (
     <section style={ sectionStyle }>
@@ -73,7 +109,7 @@ class CreatePost extends React.Component {
         <CardHeader
           avatar={
             <Avatar aria-label="Recipe" className={classes.avatar}>
-              K
+              {name.charAt(0)}
             </Avatar>
           }
           action={
@@ -81,21 +117,20 @@ class CreatePost extends React.Component {
               <MoreVertIcon />
             </IconButton>
           }
-          title="Karina"
+          title={name}
         />
         <CardContent>
         <TextField
             placeholder="Comparte tus experiencias ..."
             multiline
-            rows="3"
             value={this.state.text}
-            //onChange={this.handleChange('text')}
+            onChange={this.handleInfoChange}
             className={classes.textField}
             margin="normal"
         />
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
-        <Button color="primary" variant="raised">POST</Button>
+        <Button color="primary" variant="contained" onClick={this.handleSubmit}>POST</Button>
         </CardActions>
 
       </Card>
@@ -108,4 +143,10 @@ CreatePost.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(CreatePost);
+const mapStateToProps = (state) => {
+  return {
+    user: state.user
+  };
+};
+
+export default connect(mapStateToProps)(withStyles(styles)(CreatePost));

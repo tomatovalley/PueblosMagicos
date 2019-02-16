@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom';
+import { Alert } from 'reactstrap';
 //import PropTypes from 'prop-types';
 
 import { login } from './actions/index';
@@ -61,19 +62,13 @@ class Login extends Component  {
   constructor(props){
       super(props);
       this.state = {
+        redirect: false,
         username:'',
         password:'',
         user:[]
       };
       this.handleSubmit = this.handleSubmit.bind(this);
       this.handleInfoChange = this.handleInfoChange.bind(this);
-      this.aaaaa();
-    }
-
-    aaaaa () {
-      fetch('https://jsonplaceholder.typicode.com/todos/1')
-      .then(response => response.json())
-      .then(data => console.log(data))
     }
 
     handleInfoChange(e) {
@@ -93,24 +88,32 @@ class Login extends Component  {
         body: JSON.stringify(data)
       }).then(response => response.json())
       .then(data => this.props.login(data))
-      .then(data => console.log(data))
+      .then(data => {
+        if (data.payload.mensaje === 'error'){
+          this.props.logout()
+          console.log(data)
+
+        }else{
+          this.setState({redirect: true})
+        }
+      })
       .catch((error)=>{
         this.props.logout();
         console.log(error);
       });
    }
 
-<<<<<<< HEAD
-// this.setState({user: data})
-   
-=======
->>>>>>> 8b5b7275c0e418b30fba04c1c734cfc57d61e6cc
 
   render() {
+    const { redirect } = this.state;
+
+    if (redirect) {
+      return <Redirect to='/feed'/>
+    }
 
     return (
       <section style={ sectionStyle }>
-      <div class="App">
+      <div className="App">
 
       <form onSubmit={this.handleSubmit}>
         <form action="action_page.php">
@@ -124,7 +127,7 @@ class Login extends Component  {
             type="text" 
             name="username" 
             placeholder="Username" 
-            value={this.state.email} 
+            value={this.state.username} 
             onChange={this.handleInfoChange} />
             <br/>
             <br/>
@@ -142,10 +145,8 @@ class Login extends Component  {
               <input type="checkbox" checked="checked" name="remember"/> Recordarme
             </label>
             <br/>
-            <span className="psw"><a href="/">¿Olvidaste tu contraseña?</a></span>
             <br/>
-              <p>¿No tienes una cuenta? <a href="/signup">Regístrate</a></p>
-              <Link to="/feed">About</Link>
+              <p>¿No tienes una cuenta? <Link to="/signup">Regístrate</Link></p>
           </div>
 
         </form>
