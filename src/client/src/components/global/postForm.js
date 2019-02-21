@@ -132,7 +132,6 @@ class CreatePost extends React.Component {
         <CardActions className={classes.actions} disableActionSpacing>
         <Button color="primary" variant="contained" onClick={this.handleSubmit}>POST</Button>
         </CardActions>
-
       </Card>
       </section>
     );

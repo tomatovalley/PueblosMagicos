@@ -19,8 +19,9 @@ import CommentIcon from '@material-ui/icons/Comment';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Link, Redirect } from 'react-router-dom';
-
 import { connect } from 'react-redux';
+
+import PostForm from './global/postForm'
 
 const styles = theme => ({
   card: {
@@ -101,6 +102,7 @@ class Profile extends Component {
       posts:[]
     };
     this.posts();
+    this.handleLikes = this.handleLikes.bind(this);
   }
 
   posts () {
@@ -113,6 +115,22 @@ class Profile extends Component {
     this.setState ({ posts: data});
     //console.log(this.state.post);
   };
+
+  handleLikes = (post, likes) => event => {
+    const url = `/post/${post}/like`;
+    const data = {likes:parseInt(likes,10)};
+    console.log(data);
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+     'Accept': 'application/json',
+     'Content-Type': 'application/json; charset=utf-8'
+     },
+     body: JSON.stringify(data)
+    }).then(response => response.json())
+   .catch(error => console.error('Error:', error))
+  }
 
   render() {
     const { classes } = this.props;
@@ -142,8 +160,9 @@ class Profile extends Component {
         </Typography>
       </CardContent>
     <CardActions className={classes.actions} disableActionSpacing>
-      <IconButton aria-label="Like">
+      <IconButton aria-label="Like" onClick={this.handleLikes(post._id, post.likes)}>
         <ThumbUp />
+        <h6>Likes: {post.likes}</h6>
       </IconButton>
       <IconButton aria-label="Comment">
         <CommentIcon />
@@ -169,10 +188,11 @@ class Profile extends Component {
 
           <div style={Card2}>
             <label>Posts</label>
-            <br /><br />
-            <p>comparte experiencias con nosotros</p> 
-            <Link to="/post">comentar</Link>
+            <h5>Comparte experiencias con nosotros</h5>
+            
+            
             <center>
+            < PostForm />
               <ul>{listItems}</ul>
             </center>
           </div>

@@ -87,7 +87,7 @@ ctrl.remove = async (req, res) => {
     const post = await Post.findOne({ _id: req.params.post_id })
     if (post) {
         await Comment.deleteOne({ post_id: post._id });
-        await post.remove();
+        await Post.deleteOne({_id: req.params.post_id});
     }
 };
 
@@ -105,6 +105,16 @@ ctrl.profile = async (req, res) => {
     const post = await Post.find({ user_id: req.params.user_id }).sort({ timestamp: -1 })
     if (post) {
         res.json(post);
+    }
+    else {
+        res.json({mensaje:'error al encontrar'});
+    }
+}
+
+ctrl.searchCom = async (req, res) => {
+    const comment = await Comment.find({ post_id: req.params.post_id }).sort({ timestamp: -1 })
+    if (comment) {
+        res.json(comment);
     }
     else {
         res.json({mensaje:'error al encontrar'});

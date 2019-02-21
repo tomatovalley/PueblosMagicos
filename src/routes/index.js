@@ -25,6 +25,8 @@ module.exports = app => {
     router.post('/post/:post_id/like', post.like);
     router.post('/post/:post_id/comment', post.comment);
     router.delete('/post/:post_id', post.remove);
+    router.post('/comment/:post_id', post.searchCom);
+    
 
     app.use(router);
 

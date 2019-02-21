@@ -101,6 +101,8 @@ class Profile extends Component {
             posts:[]
           };
           this.posts()
+          this.deleteHandle = this.deleteHandle.bind(this)
+          this.handleLikes = this.handleLikes.bind(this)
         }
   posts () {
     const { user } = this.props;
@@ -116,6 +118,33 @@ class Profile extends Component {
     //console.log(this.state.post);
   };
 
+  deleteHandle = post => event => {
+    event.preventDefault();
+    fetch(`/post/${post}`, {
+    method: 'DELETE',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({post})
+  })
+  .then(res => res.text())
+  .then(res => alert(res))
+  }
+
+  handleLikes = (post, likes) => event => {
+    const url = `/post/${post}/like`;
+    const data = {likes:parseInt(likes,10)};
+    console.log(data);
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+     'Accept': 'application/json',
+     'Content-Type': 'application/json; charset=utf-8'
+     },
+     body: JSON.stringify(data)
+    }).then(response => response.json())
+   .catch(error => console.error('Error:', error))
+  }
+
   render() {
     const { classes } = this.props;
     const { user } = this.props;
@@ -126,7 +155,7 @@ class Profile extends Component {
     <CardHeader
       avatar={
         <Avatar aria-label="Recipe" className={classes.avatar}>
-          A
+          {post.autor.charAt(0).toLocaleUpperCase()}
         </Avatar>
       }
       action={
@@ -134,7 +163,7 @@ class Profile extends Component {
           <MoreVertIcon />
         </IconButton>
       }
-      title={post.autor}
+      title={post.autor.toLocaleUpperCase()}
       subheader= {new Date().toLocaleString()}
     />
       <CardContent>
@@ -144,13 +173,11 @@ class Profile extends Component {
         </Typography>
       </CardContent>
     <CardActions className={classes.actions} disableActionSpacing>
-      <IconButton aria-label="Like">
+      <IconButton aria-label="Like" onClick={this.handleLikes(post._id, post.likes)}>
         <ThumbUp />
+        <h6>Likes: {post.likes}</h6>
       </IconButton>
-      <IconButton aria-label="Comment">
-        <CommentIcon />
-      </IconButton>
-      <IconButton aria-label="Delete">
+      <IconButton aria-label="Delete" onClick={this.deleteHandle(post._id)}>
         <DeleteIcon />
     </IconButton>
     </CardActions>
@@ -169,7 +196,7 @@ class Profile extends Component {
           <div style={Card3}>
             <img src={imageName} alt="avatar2" width="100" height="100" />
             <br /><br />
-            <label>{user.user.username}</label>
+            <label>{user.user.username.toLocaleUpperCase()}</label>
             <br></br>
             <label>{user.user.email}</label>
           </div>

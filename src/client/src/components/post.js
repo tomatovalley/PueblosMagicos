@@ -97,10 +97,15 @@ class CreatePost extends React.Component {
           expanded: false,
           posts:[],
           anchorEl: null,
-          user_id:''
+          username:'',
+          content:'',
+          likes:0
         };
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleInfoChange = this.handleInfoChange.bind(this);
+        this.handleLikes = this.handleLikes.bind(this);
         this.posts();
+        this.comments();
     }
 
     posts () {
@@ -113,24 +118,40 @@ class CreatePost extends React.Component {
         this.setState ({ posts: data});
     };
 
+    comments (post) {
+      const comment = [];
+      fetch(`/comment/${post}`)
+      .then(res => res.json())
+      .then(res => comment = res)
+
+      console.log(comment)
+      return comment;
+    }
+
   handleClick = event => {
     this.setState({ anchorEl: event.currentTarget });
   };
 
   handleClose = () => {
+    
       this.setState({ anchorEl: null });
     };
 
+  handleInfoChange(e) {
+    this.setState({content: e.target.value});
+  }
+
   handleExpandClick = () => {
     this.setState(state => ({ expanded: !state.expanded }));
+    const { user } = this.props;
+    this.setState(state => ({username: user.user.username}));
   };
 
   handleSubmit = post => event => {
     event.preventDefault();
-    const { user } = this.props;
-    this.setState({user_id:user.user._id})
-    const url = `/post/${post._id}/comment`;
+    const url = `/post/${post}/comment`;
     const data = this.state;
+    console.log(data);
 
     fetch(url, {
       method: 'POST',
@@ -140,21 +161,33 @@ class CreatePost extends React.Component {
      },
      body: JSON.stringify(data)
     }).then(response => response.json())
-   .then(data => {
-     if (data.mensaje === 'registered successfully'){
-       this.setState({req: true})
-     }
-   })
    .catch(error => console.error('Error:', error))
   }
+
+  handleLikes = (post, likes) => event => {
+    const url = `/post/${post}/like`;
+    const data = {likes:parseInt(likes,10)};
+    console.log(data);
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+     'Accept': 'application/json',
+     'Content-Type': 'application/json; charset=utf-8'
+     },
+     body: JSON.stringify(data)
+    }).then(response => response.json())
+   .catch(error => console.error('Error:', error))
+  }
+
 
   render() {
     const { classes } = this.props;
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
     const { posts } = this.state;
-    const listItems = posts.map((post) => 
-    <li><Card className={classes.card}>
+    const listItems = posts.map((post) =>  
+    <div><li><Card className={classes.card}>
     <CardHeader
       avatar={
         <Avatar aria-label="Recipe" className={classes.avatar}>
@@ -185,7 +218,7 @@ class CreatePost extends React.Component {
                 >
                 {options.map(option => (
                   <MenuItem key={option} selected={option === 'Pyxis'} onClick={this.handleClose}>
-                    {option}
+                    hola
                   </MenuItem>
                 ))}
                 </Menu>
@@ -202,8 +235,9 @@ class CreatePost extends React.Component {
         </Typography>
       </CardContent>
     <CardActions className={classes.actions} disableActionSpacing>
-      <IconButton aria-label="Like">
+      <IconButton aria-label="Like" onClick={this.handleLikes(post._id, post.likes)} >
         <ThumbUp />
+        <h6>Likes: {post.likes}</h6>
       </IconButton>
       
       <IconButton aria-label="Comment" className={classnames(classes.expand, {
@@ -223,23 +257,31 @@ class CreatePost extends React.Component {
 
     <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
     <CardHeader
-          /*avatar={
-            <Avatar className={classes.smallAvatar} src={'./avatar2'}/>
-          }*/
           title={ <TextField
-            //onKeyDown={this.addComment}
             multiline
             value={this.state.text}
             placeholder="Write something ..."
             className={classes.commentField}
             margin="normal"
+            onChange={this.handleInfoChange}
             />
           }
           className={classes.cardHeader}
     />
-    <Button color="secondary" variant="raised" onClick={this.handleSubmit(post)}>POST</Button>
+    <Button color="secondary" variant="raised" onClick={this.handleSubmit(post._id)}>POST</Button>
     </Collapse>
-  </Card></li> )
+    </Card>
+    {this.comments(post._id).map(comment=> (
+          <li><h4>{comment._id}</h4></li>
+        ))}
+    </li>
+    
+
+    
+    </div>
+    
+  )
+  
 
     return (
     <section style={ sectionStyle }>
